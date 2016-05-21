@@ -1,4 +1,5 @@
 ---
+es_enabled: yes
 es_major_version: "2.x"
 es_version: "2.2.0"
 es_version_lock: false

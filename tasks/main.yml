@@ -1,16 +1,22 @@
 ---
 - name: check-parameters
   include: checkParameters.yml
+  when: es_enabled
 - name: os-specific vars
   include_vars: "{{ansible_os_family}}.yml"
+  when: es_enabled
 - include: java.yml
+  when: es_enabled
 - include: elasticsearch.yml
+  when: es_enabled
 - include: elasticsearch-config.yml
+  when: es_enabled
 - include: elasticsearch-scripts.yml
-  when: es_scripts
+  when: es_scripts and es_enabled
 - include: elasticsearch-plugins.yml
-  when: es_plugins is defined or es_plugins_reinstall
+  when: (es_plugins is defined or es_plugins_reinstall) and es_enabled
 - include: elasticsearch-service.yml
+  when: es_enabled
 - include: elasticsearch-templates.yml
-  when: es_templates
+  when: es_templates and es_enabled
 - meta: flush_handlers
